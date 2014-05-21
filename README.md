@@ -1,3 +1,5 @@
+Ceci est le fichier par défaut de cakephp, je le laisse pour raison d'esthétique et de droits
+
 CakePHP
 =======
 
