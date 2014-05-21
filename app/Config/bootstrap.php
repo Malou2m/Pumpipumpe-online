@@ -109,3 +109,5 @@ CakeLog::config('error', array(
 ));
 
 CakePlugin::load('DebugKit');
+CakePlugin::load('Contactform', array('routes' => true));
+CakePlugin::load('BoostCake');

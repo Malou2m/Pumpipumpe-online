@@ -37,25 +37,37 @@
  */
 class EmailConfig {
 
-	public $default = array(
-		'transport' => 'Mail',
-		'from' => 'you@localhost',
-		//'charset' => 'utf-8',
-		//'headerCharset' => 'utf-8',
+	// Envoie mail via serveur smtp gmail.
+	public $contactform = array(
+		'transport' => 'Smtp',
+		'from' => 'ockenfels.malou@gmail.com',
+		'host' => 'ssl://smtp.gmail.com',
+        'port' => 465,
+        'username' => 'ockenfels.malou@gmail.com',
+        'password' => 'enneagone',
 	);
 
+	// Cette configuration par défaut ne fonctionne pas --> fonction mail en localhost ne fonctionne pas par défaut.
+	public $default = array(
+		'transport' => 'Mail',
+		'from' => 'you@localhost.fr',
+		'charset' => 'utf-8',
+		'headerCharset' => 'utf-8',
+	);
+
+	// Fonction mail en localhost ne fonctionne pas par défaut, même si les données sont juste.
 	public $smtp = array(
 		'transport' => 'Smtp',
-		'from' => array('site@localhost' => 'My Site'),
+		'from' => array('you@localhost.ch' => 'malou.local'),
 		'host' => 'localhost',
 		'port' => 25,
 		'timeout' => 30,
-		'username' => 'user',
-		'password' => 'secret',
+		//'username' => 'root',
+		//'password' => '',
 		'client' => null,
 		'log' => false,
-		//'charset' => 'utf-8',
-		//'headerCharset' => 'utf-8',
+		'charset' => 'utf-8',
+		'headerCharset' => 'utf-8',
 	);
 
 	public $fast = array(

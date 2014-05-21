@@ -1,7 +1,6 @@
 <!-- affiche "welcome $username lors d'un login" -->
 
-<div><?= $this->Session->flash('auth') ?></div>
-<div><?= $this->Session->flash() ?></div>
+<div><?= $this->Session->flash('auth_error') ?></div>
 
  <!-- Carousel Slider
     ================================================== -->
@@ -45,7 +44,7 @@
       <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     </div><!-- /.carousel -->
 
-<<!-- content -->
+<!-- content -->
 
     <div class="container">
 

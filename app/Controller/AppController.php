@@ -33,6 +33,15 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
+    // Ajoute des helpers pour le plugin boostcake.
+    public $helpers = array(
+        'Session',
+        'Html' => array('className' => 'BoostCake.BoostCakeHtml'),
+        'Form' => array('className' => 'BoostCake.BoostCakeForm'),
+        'Paginator' => array('className' => 'BoostCake.BoostCakePaginator'),
+        'Js'
+    );
+
     // added the debug toolkit
     // sessions support
     // authorization for login and logut redirect
@@ -40,12 +49,22 @@ class AppController extends Controller {
         'DebugKit.Toolbar',
         'Session',
         'Auth' => array(
+            'flash' => array(
+                'element' => 'alert',
+                'key' => 'auth',
+                'params' => array(
+                    'plugin' => 'BoostCake',
+                    'class' => 'alert-error'
+                )
+            ),
             'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
             'authError' => 'You must be logged in to view this page.',
             'loginError' => 'Invalid Username or Password entered, please try again.'
  
-        ));
+        ),
+        'RequestHandler',
+        'Email');
     
     
     public function beforeFilter() {

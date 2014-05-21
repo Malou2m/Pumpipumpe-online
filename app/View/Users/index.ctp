@@ -1,4 +1,5 @@
-<div><?= $this->Session->flash(); ?></div>
+
+<div ><?= $this->Session->flash() ?></div>
 
  <!-- Carousel Slider
     ================================================== -->
@@ -42,15 +43,69 @@
       <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     </div><!-- /.carousel -->
 
-<<!-- content -->
+<!-- content classified with bootstrap grid system-->
+    <div class="row">
+        <div class="col-md-3 ">
 
-    <div class="container">
+          <!-- Main component for a primary marketing message or call to action -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h1 class="panel-title">How to use pumpipumpe</h1>
+            </div>
+            <div class="panel-body">
+            Lorem ipsum donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.
+            </div> 
+          </div>
+            
+          
 
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>How to use pumpipumpe</h1>
-        <p>Lorem ipsum donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-        
-      </div>
+        </div> 
 
-    </div> 
+        <!-- Cake paginator -->
+        <div class="col-md-9 ">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h1 class="panel-title">Objects Suggestions</h1>
+            </div>
+            <div class="panel-body">
+              <?php if(empty($objets)){ echo "There are not enough people in your area using pumpipumpe yet.";}
+                    else{ 
+                      // D'après cookbook (ajax paginator), devrait passer via js pour paginator.
+                      $this->Paginator->options(array( 
+                                        'update' => '#paginator_content', 
+                                        'evalScripts' => true,
+                                        'before' => $this->Js->get('#paginator_content')->effect('fadeIn', array('buffer' => false)),
+                                        'complete' => $this->Js->get('#paginator_content')->effect('fadeOut', array('buffer' => false)),
+                                        ));
+                      echo
+              "<table class='table'>
+                  <thead>
+                    <tr>
+                        <th>". $this->Paginator->sort('name', 'Name') . "</th>
+                        <th>". $this->Paginator->sort('description', 'Description') . "</th>
+                        <th>". $this->Paginator->sort('owner', 'Owner') . "</th>
+                        <th>" . $this->Paginator->sort('PLZ', 'Location') . "</th>
+                    </tr>
+                  </thead>
+                    <tbody id='paginator_content'>";
+                          foreach($objets as $objet): ?>
+                          
+                              <tr>
+                                  <td><?php echo $this->Html->link($objet['Objet']['name'], array('controller'=>'objets', 'action' => 'view', $objet['Objet']['id']), 
+                                    // tooltip from bootstrap (activated in footer)
+                                  array('data-toggle'=>"tooltip", 'data-placement'=>'left', 'title'=>"Click to view object")); ?> </td>
+                                  <td><?php echo $objet['Objet']['description']; ?> </td>
+                                  <td><?php echo $objet['Objet']['owner']; ?></td>
+                                  <td><?php echo $objet['Objet']['PLZ']; ?></td>
+                              </tr>
+                          <?php endforeach; ?>
+                          <?php unset($objet); ?>
+                    </tbody>
+               </table> 
+               <!-- Boostcake numbering -->
+               <?php echo $this->Paginator->pagination(array(
+                'ul' => 'pagination'
+              )); }?>
+            </div>
+        </div> 
+    </div>
