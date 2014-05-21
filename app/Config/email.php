@@ -44,7 +44,7 @@ class EmailConfig {
 		'host' => 'ssl://smtp.gmail.com',
         'port' => 465,
         'username' => 'ockenfels.malou@gmail.com',
-        'password' => 'enneagone',
+        'password' => 'secret',
 	);
 
 	// Cette configuration par défaut ne fonctionne pas --> fonction mail en localhost ne fonctionne pas par défaut.
