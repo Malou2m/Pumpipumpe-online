@@ -17,7 +17,7 @@
 	else {
 		echo $this->Html->Link("Edit this object", array('action'=>'edit', $objet['Objet']['id']), array('class'=>'btn btn-default '));
 		
-		echo $this->Form->Button('Delete Object', array('class'=>'btn btn-default ', 'data-toggle'=>"modal", 'data-target'=>"#myModal"));
+		echo $this->Form->Button('Delete Object', array('class'=>'btn btn-danger ', 'data-toggle'=>"modal", 'data-target'=>"#myModal"));
 	?>
 	
 	<!-- Alert if wants to delete objet-->
@@ -33,8 +33,8 @@
 	        If not, make sure you want to delete this object and please click on the delete button.
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <?php echo $this->Html->Link("Delete this object", array('action'=>'delete', $objet['Objet']['id']), array('class'=>'btn btn-primary ')); ?>
+	        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+	        <?php echo $this->Html->Link("Delete this object", array('action'=>'delete', $objet['Objet']['id']), array('class'=>'btn btn-danger ')); ?>
 	      </div>
 	    </div>
 	  </div>

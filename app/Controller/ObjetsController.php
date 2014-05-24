@@ -11,32 +11,21 @@ class ObjetsController extends AppController {
 
         // N'afficher que les objets dont le nom est le même que l'utilisateur -> Afficher les objets de l'utilisateur.
         $conditions = array('owner' => $this->Auth->user('username'));
-        $this->paginate = array(
-                'limit' => 4,
-                'order' => array('Objet.name' => 'asc' ),
-                'conditions' => $conditions
-        );
-        $my_objets = $this->paginate('Objet');
+
+        $my_objets = $this->Objet->find('all', array('conditions'=>$conditions));
+        
         $this->set(compact('my_objets'));
 
          // Affiche les objets empruntés par l'utilisateur.
         $conditions = array('borrower' => $this->Auth->user('username'));
-        $this->paginate = array(
-                'limit' => 4,
-                'order' => array('Objet.name' => 'asc' ),
-                'conditions' => $conditions
-        );
-        $borrowed_objets = $this->paginate('Objet');
+        
+        $borrowed_objets = $this->Objet->find('all', array('conditions'=>$conditions));
         $this->set(compact('borrowed_objets'));
 
         // Affiche les objets prêtés par l'utilisateur.
         $conditions = array('owner' => $this->Auth->user('username'), 'borrower !=' => null);
-        $this->paginate = array(
-                'limit' => 4,
-                'order' => array('Objet.name' => 'asc' ),
-                'conditions' => $conditions
-        );
-        $shared_objets = $this->paginate('Objet');
+
+        $shared_objets = $this->Objet->find('all', array('conditions'=>$conditions));
         $this->set(compact('shared_objets'));
 
         // Stockage des valeurs des classes dans un tableau
@@ -44,12 +33,8 @@ class ObjetsController extends AppController {
 
         // Stockage des éléments par classe à l'aide du paginator.
         foreach ($classes as $class){
-            $this->paginate = array(
-                'limit' => 4,
-                'order' => array('Objet.name' => 'asc' ),
-                'conditions' => array('class'=>$class, 'owner !=' => $this->Auth->user('username'), 'borrower' => null )
-            );
-            $objets[$class] = $this->paginate('Objet');
+            $conditions = array('class'=>$class, 'owner !=' => $this->Auth->user('username'), 'borrower' => null );
+            $objets[$class] = $this->Objet->find('all', array('conditions'=>$conditions));
             
         }
 
@@ -136,14 +121,16 @@ class ObjetsController extends AppController {
                     'borrower'=>null
                 );
 
+                $objets_search = $this->Objet->find('all', array('conditions'=>$conditions));
+
                 // Affichage user-friendly avec paginate.
-                $this->paginate = array(
-                'limit' => 3,
-                'order' => array('Objet.name' => 'asc' ),
-                'conditions' => $conditions
-                );
-                $objets = $this->paginate('Objet');
-                $this->set(compact('objets'));
+                //$this->paginate = array(
+                //'limit' => 3,
+                //'order' => array('Objet.name' => 'asc' ),
+                //'conditions' => $conditions
+                //);
+                //$objets_search = $this->paginate('Objet');
+                $this->set(compact('objets_search'));
             }
             // Si la requête est vide.
             else{
@@ -271,8 +258,19 @@ We thank you for using Pumpipumpe online.');
         if ($objet['Objet']['owner'] == $this->Auth->user('username') && $objet['Objet']['owner'] != null){
             // Si la requête est en 'post', faire
             if ($this->request->is('post') || $this->request->is('put')) {
+
+                    // Vérifie qu'au moins une information soit bien changée
+                    
+                    if($this->request->data('Objet.name')==$objet['Objet']['name'] && 
+                        $this->request->data('Objet.description')==$objet['Objet']['description'] && 
+                        $this->request->data('Objet.class')==$objet['Objet']['class']){
+                            $this->Session->setFlash(__('You must at least change one field'), 'alert', array(
+                                                'plugin' => 'BoostCake',
+                                                'class' => 'alert-warning'));
+                    }
+                    
                     // Si les données de l'objet ont pu être changées, afficher les données modifiées et rediriger l'utilisateur vers la page de l'objet en question.
-                    if ($this->Objet->save($this->request->data)) {
+                    else if ($this->Objet->save($this->request->data)) {
                         $this->Session->setFlash(__('The object has successfully been updated'), 'alert', array(
                                                     'plugin' => 'BoostCake',
                                                     'class' => 'alert-success'));

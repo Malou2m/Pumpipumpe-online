@@ -1,6 +1,6 @@
 
-<div ><?= $this->Session->flash() ?></div>
 
+</div>
  <!-- Carousel Slider
     ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -11,7 +11,7 @@
         <li data-target="#myCarousel" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner">
-        <div class="item active">
+        <div class="item bg bg1 active">
           <div class="container">
             <div class="carousel-caption">
               <h1>You need Objects? You want to add some new ones? </h1>
@@ -20,7 +20,7 @@
             </div>
           </div>
         </div>
-        <div class="item">
+        <div class="item bg bg2">
           <div class="container">
             <div class="carousel-caption">
               <h1>You need to change your informations or add some new objects? you can do this via the account page</h1>
@@ -29,19 +29,14 @@
             </div>
           </div>
         </div>
-        <div class="item">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>One more for good measure.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
-            </div>
-          </div>
-        </div>
+      
       </div>
       <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
       <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     </div><!-- /.carousel -->
+
+<div class="container">
+<div ><?= $this->Session->flash() ?></div>
 
 <!-- content classified with bootstrap grid system-->
     <div class="row">
@@ -50,10 +45,10 @@
           <!-- Main component for a primary marketing message or call to action -->
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h1 class="panel-title">How to use pumpipumpe</h1>
+              <h1 class="panel-title">How to use pumpipumpe?</h1>
             </div>
             <div class="panel-body">
-            Lorem ipsum donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.
+            Simply add some objects you want to share via the object page or by clicking <?= $this->Html->link( "here",   array('controller' => 'objets', 'action'=>'index') ); ?>. If you want to change informations about your account, go through the <?= $this->Html->link( "account page",   array('controller' => 'users', 'action'=>'edit') ); ?>. If you want to borrow some objects, just click on their names and you will be redirected to the specific object page. And that's it!
             </div> 
           </div>
             
@@ -70,13 +65,7 @@
             <div class="panel-body">
               <?php if(empty($objets)){ echo "There are not enough people in your area using pumpipumpe yet.";}
                     else{ 
-                      // D'après cookbook (ajax paginator), devrait passer via js pour paginator.
-                      $this->Paginator->options(array( 
-                                        'update' => '#paginator_content', 
-                                        'evalScripts' => true,
-                                        'before' => $this->Js->get('#paginator_content')->effect('fadeIn', array('buffer' => false)),
-                                        'complete' => $this->Js->get('#paginator_content')->effect('fadeOut', array('buffer' => false)),
-                                        ));
+                      
                       echo
               "<table class='table'>
                   <thead>

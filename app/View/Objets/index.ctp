@@ -38,17 +38,17 @@
                                   if(empty($objets_by_class[$key])){ echo "<div class='container'></br>There are no " . $key . " objects yet</br></div> ";}
                                           else{
                                                 echo "
-                                    <table class='table'>
+                                    <table id = 'objets_" . $key . "' class='table'>
                                         <thead>
                                           <tr>
-                                              <th>" . $this->Paginator->sort('name', 'Name') . "</th>
-                                              <th>" . $this->Paginator->sort('description', 'Description') . "</th>
-                                              <th>" . $this->Paginator->sort('PLZ', 'Location') . "</th>
-                                              <th>" . $this->Paginator->sort('owner', 'Owner') . "</th>
+                                              <th>Name</th>
+                                              <th>Description</th>
+                                              <th>Location</th>
+                                              <th>Owner</th>
 
                                           </tr>
                                         </thead>
-                                        ";  
+                                        <tbody >";  
 
                                         // Boucle sur les objets de chaque classe pour les afficher.
                                           foreach ($objets_by_class[$key] as $objet): ?>
@@ -61,20 +61,18 @@
                                               <td><?php echo $objet['Objet']['PLZ']; ?></td>
                                               <td><?php echo $objet['Objet']['owner']; ?></td>
                                           </tr>
-                                          <?php endforeach; }?>                                 
+                                          <?php endforeach; }?>  
+                                          </tbody>                               
                                       </table>
-                                  <!-- Boostcake numbering -->
-                                 <?php echo $this->Paginator->pagination(array(
-                                  'ul' => 'pagination'
-                                )); ?>    
-                            </div>
+                                    
+                            </div> <!-- tab-pane fade in-->
                       <?php endforeach; 
                       unset($objets_keys);
                       unset($objets_by_class);?>
-                  </div>
-              </div>
-            </div>
-  </div>
+                  </div> <!-- tab content -->
+              </div> <!-- panel body -->
+            </div><!-- panel-collapse -->
+          </div><!-- panel -->
           
           <!-- shows the objects possessed by the current user. -->
           <div class="panel panel-default">
@@ -89,15 +87,15 @@
                   <?php if(empty($my_objets)){ echo " <div class='panel-body'> You don't have any objects yet, would you like to " . $this->Html->link('add some', array('action'=>'add')) . " ?. </div>";}
                       else{
                             echo "
-                <table class='table'>
-                <thead>
-                  <tr>
-                      <th>" . $this->Paginator->sort('name', 'Name') . "</th>
-                      <th>" . $this->Paginator->sort('description', 'Description') . "</th>
-                      <th>" . $this->Paginator->sort('class', 'Class') . "</th>
-                  </tr>
-                </thead>
-                    ";  
+                <table id='myObjets' class='table'>
+                  <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Class</th>
+                    </tr>
+                  </thead>
+                  <tbody>";  
                       // Boucle sur les objets de l'utilisateur pour les afficher.
                       foreach ($my_objets as $objet): ?>
                       <tr>
@@ -109,20 +107,19 @@
                           <td><?php echo $objet['Objet']['class']; ?></td>
                       </tr>
                       <?php endforeach; ?>
+                      <?php unset($my_objets); ?>
+                  </tbody>
                       
-                  </table>
+                </table>
 
-                  <!-- Boostcake numbering -->
-                  <?php echo $this->Paginator->pagination(array(
-                  'ul' => 'pagination'
-                )); ?>
+                  
 
                   <?php echo $this->Html->Link("add a new object", array('action'=>'add'), array('class'=>'btn btn-primary ')); }?>
 
-                  <?php unset($my_objets); ?>
-              </div>
-            </div>
-          </div>
+                  
+              </div> <!-- panel body-->
+            </div><!-- panel-collapse -->
+          </div><!-- panel -->
 
           <!-- shows the objects shared by the current user. -->
 
@@ -138,16 +135,16 @@
                         <?php if(empty($shared_objets)){ echo " You aren't sharing any objects yet, would you like to " . $this->Html->link('add some', array('action'=>'add')) . " ?. ";}
                             else{
                                   echo "
-                      <table class='table'>
+                      <table id='shared_objets' class='table'>
                       <thead>
                         <tr>
-                            <th>" . $this->Paginator->sort('name', 'Name') . "</th>
-                            <th>" . $this->Paginator->sort('description', 'Description') . "</th>
-                            <th>" . $this->Paginator->sort('borrower', 'B orrower') . "</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Borrower</th>
                             <th> </th>
                         </tr>
                       </thead>
-                          ";  
+                      <tbody>";  
                             // Boucle sur les objets de l'utilisateur pour les afficher.
                             foreach ($shared_objets as $objet): ?>
                             <tr>
@@ -160,15 +157,9 @@
                                 <td><?php echo $this->Html->Link("I received it back", array('action'=>'returnObject', $objet['Objet']['id']), array('class'=>'btn btn-default ')); ?></td>
                             </tr>
                             <?php endforeach; ?>
-                            
-                        </table>
-
-                        <!-- Boostcake numbering -->
-                        <?php echo $this->Paginator->pagination(array(
-                        'ul' => 'pagination'
-                      )); }?>
-
-                        <?php unset($my_objets); ?>
+                        </tbody>    
+                      </table>
+                        <?php unset($my_objets); }?>
                     </div>
                 </div>
         
@@ -189,16 +180,16 @@
                           <?php if(empty($borrowed_objets)){ echo "You haven't borrowed any objects yet.";}
                               else{
                                     echo "
-                        <table class='table'>
+                        <table id='borrowed_objets' class='table'>
                         <thead>
                           <tr>
-                              <th>" . $this->Paginator->sort('name', 'Name') . "</th>
-                              <th>" . $this->Paginator->sort('description', 'Description') . "</th>
-                              <th>" . $this->Paginator->sort('owner', 'Owner') . "</th>
+                              <th>Name</th>
+                              <th>Description</th>
+                              <th>Owner</th>
                               <th> </th>
                           </tr>
                         </thead>
-                            ";  
+                        <tbody>    ";  
                               // Boucle sur les objets de l'utilisateur pour les afficher.
                               foreach ($borrowed_objets as $objet): ?>
                               <tr>
@@ -211,28 +202,12 @@
                                   <td><?php echo $this->Html->Link("No longer in my posession", array('action'=>'returnObject', $objet['Objet']['id']), array('class'=>'btn btn-default ')); ?></td>
                               </tr>
                               <?php endforeach; ?>
-                              
-                          </table>
+                        </tbody>      
+                      </table>
 
-                          <!-- Boostcake numbering -->
-                          <?php echo $this->Paginator->pagination(array(
-                          'ul' => 'pagination'
-                        )); }?>
-
-                          <?php unset($borrowed_objets); ?>
+                          <?php unset($borrowed_objets); }?>
                       </div>
                   </div>
           </div>
     </div>
 </div>
-
-
-<!-- bootstrap tab js -->
-
-<script type="text/javascript">
-    $('#sport').click(function (e) {
-      e.preventDefault()
-      $(this).tab('show')
-    })
-
-</script>

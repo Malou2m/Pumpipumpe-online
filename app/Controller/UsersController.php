@@ -2,11 +2,7 @@
 
 class UsersController extends AppController {
 
-    public $paginate = array(
-        'limit' => 25,
-        'conditions' => array('status' => '1'),
-        'order' => array('User.username' => 'asc' ) 
-    );
+    
     
     public function beforeFilter() {
         parent::beforeFilter();
@@ -117,8 +113,18 @@ class UsersController extends AppController {
             }
 
             if ($this->request->is('post') || $this->request->is('put')) {
+
+                // Vérifie qu'au moins une information soit bien changée
                 $this->User->id = $currentUserId;
-                if ($this->User->save($this->request->data)) {
+                if($this->request->data('User.username')==$user['User']['username'] && 
+                    $this->request->data('User.email')==$user['User']['email'] && 
+                    $this->request->data('User.PLZ')==$user['User']['PLZ']){
+                        $this->Session->setFlash(__('You must at least change one field'), 'alert', array(
+                                            'plugin' => 'BoostCake',
+                                            'class' => 'alert-warning'));
+                }
+                
+                else if ($this->User->save($this->request->data)) {
                     $this->Session->setFlash(__('The user has been updated'), 'alert', array(
                 'plugin' => 'BoostCake',
                 'class' => 'alert-success'));

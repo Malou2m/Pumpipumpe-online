@@ -7,6 +7,7 @@
     <!--<meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">-->
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->webroot; ?>favicon.ico">
 
     <title>Pumpipume Online</title>
 
@@ -20,13 +21,22 @@
     <?= $this->Html->css('navbar'); ?>
     <!-- To load some css -->
     <?= $this->fetch('css'); ?>
+
+    <!-- new font: open sans -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
+
+    <!-- paginator plugin -->
+
+    <link href='//cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css' rel='stylesheet' type='text/css'>
+
+    
     
   </head>
 
   <body>
 
     <!-- Fixed navbar -->
-    <div class="yamm navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
@@ -35,7 +45,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" >Pumpipumpe Online  <?php if ($this->Session->check('Auth.User')){ echo 'from ' . $currentUser;} ?></a>
+          <a class="navbar-brand" ><?= $this->Html->image('logo.png', array('alt' => 'logo', 'width'=>'150px'))?>  <?php if ($this->Session->check('Auth.User')){ echo 'from ' . $currentUser;} ?></a>
         </div>
         <div class="navbar-collapse collapse" id="navigation">
           <ul class="nav navbar-nav">
@@ -54,7 +64,7 @@
             else{
                 echo "<li>";
             }
-            echo $this->Html->link( "Home",   array('plugin'=>null, 'controller' => 'users', 'action'=>'login')) . "</li>";
+            echo $this->Html->link( "HOME",   array('plugin'=>null, 'controller' => 'users', 'action'=>'login')) . "</li>";
 
             // Affiche cela si l'utilisateur est logué
             if ($this->Session->check('Auth.User')){
@@ -66,7 +76,7 @@
                 else{
                     echo "<li>";
                 }
-                echo $this->Html->link( "Objects",   array('plugin'=>null, 'controller' => 'objets', 'action'=>'index')) . "</li>";
+                echo $this->Html->link( "OBJECTS",   array('plugin'=>null, 'controller' => 'objets', 'action'=>'index')) . "</li>";
 
                 // Si la page actuelle est "account", alors la classe de "li" est "active"
                 if ($this->request->here== Router::url(array('controller' => 'users', 'action' => 'edit'))){
@@ -75,7 +85,7 @@
                 else{
                     echo "<li>";
                 }
-                echo $this->Html->link( "Account",   array('plugin'=>null, 'controller' => 'users', 'action'=>'edit')) . "</li>";
+                echo $this->Html->link( "ACCOUNT",   array('plugin'=>null, 'controller' => 'users', 'action'=>'edit')) . "</li>";
                 }
                 
 
@@ -88,33 +98,8 @@
                 else{
                     echo "<li>";
                 }
-                echo $this->Html->link( "Subscribe",   array('plugin'=>null, 'controller' => 'users', 'action'=>'subscribe') ) . "</li>" ;
-            
-            // Dropdown Login
-                /*echo "
-            <li class='dropdown'>
-              <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Login <b class='caret'></b></a>
-              <ul class='dropdown-menu'>
-                <div class='users form'>" .
-                    $this->Form->create('User', array(
-                        'inputDefaults' => array(
-                            'div' => 'form-group',
-                            'label' => array(
-                                'class' => 'col col-md-3 control-label'
-                            ),
-                            'wrapInput' => 'col col-md-9',
-                            'class' => 'form-control'
-                        ),
-                        'class' => 'well form-horizontal')) .
-                    "<fieldset>" .
-                            $this->Form->input('username', array('label'=>'Username')) .
-                            $this->Form->input('password', array('label'=>'Password')) .
-                    "</fieldset>" .
-                    $this->Form->end(__('Login', array('action'=>'login'))) .
-                "</div>
-              </ul>
-            </li>";**/
-
+                echo $this->Html->link( "SUBSCRIBE",   array('plugin'=>null, 'controller' => 'users', 'action'=>'subscribe') ) . "</li>" ;
+        
                   // Si la page actuelle est "contact", alors la classe de "li" est "active"
                 if ($this->request->here== Router::url(array('controller' => 'contactform'))){
                     echo "<li class='active'>";
@@ -122,7 +107,7 @@
                 else{
                     echo "<li>";
                 }
-                echo $this->Html->link( "Contact",   array('plugin'=>'contactform', 'controller' => 'contactform', 'action'=> 'show') ) . "</li>" ;
+                echo $this->Html->link( "CONTACT",   array('plugin'=>'contactform', 'controller' => 'contactform', 'action'=> 'show') ) . "</li>" ;
 
                 // Login dans la barre de recherche.
                 echo  $this->Form->create('User', array(
@@ -156,7 +141,7 @@
             
             <?php 
             if ($this->Session->check('Auth.User')){
-                echo "<li>" . $this->Html->link( "Logout",   array('plugin'=>null, 'controller' => 'users', 'action'=>'logout')) . "</li>";
+                echo "<li>" . $this->Html->link( "LOGOUT",   array('plugin'=>null, 'controller' => 'users', 'action'=>'logout')) . "</li>";
             }   
             ?>
 
@@ -165,25 +150,25 @@
           <?php 
           // Barre de recherche. Visible que si l'utilisateur est logué.
           if ($this->Session->check('Auth.User')){
-            echo  $this->Form->create('Objet', array(
-                    'class'=>'form-inline navbar-form navbar-right',
-                    'action'=>'search',
-                    'role'=>'form',
-                    'inputDefaults' => array(
-                            'label' => false,
-                            'div' => false,
+            echo  "<div class='input-group navbar-right'>" . 
+                        $this->Form->create('Objet', array(
+                        'class'=>'form-inline navbar-form navbar-right',
+                        'action'=>'search',
+                        'role'=>'form',
+                        'inputDefaults' => array(
+                                'label' => false,
+                                'div' => false,
 
-                    ))) .
-                    "<div class='form-group'>" .
-                    $this->Form->input('search', array(
-                        'type'=>'text',
-                        'class'=>'form-control',
-                        'placeholder'=>'Search'
-                        )) . "</div>".
-                $this->Form->button("<span class='glyphicon glyphicon-search'></span> Search", array(
-                    'class'=>'btn btn-default',
-                    'type'=>'submit')) .
-                $this->Form->end();
+                        ))) .
+                        "<input name='data[Objet][search]' class='form-control' placeholder='Search' type='text' id='ObjetSearch'/>" .
+                            "<span class='input-group-btn'>" .
+                                $this->Form->button("<span class='glyphicon glyphicon-search'></span> Search", array(
+                                'class'=>'btn btn-default',
+                                'type'=>'submit')) . 
+                            "</span>
+                        ".
+                        $this->Form->end() . 
+                    "</div>";
             }
         ?>
         </div><!--/.nav-collapse -->
@@ -205,6 +190,56 @@
     $(document).ready(function() {
         $('[data-toggle=tooltip]').tooltip()
     });
+    </script>
+
+    <!-- Pagination jquery-->
+    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10-dev/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" charset="utf-8">
+            $(document).ready(function() {
+                $('#search').dataTable({
+                    // N'affiche que les éléments "length", "info" et "pagination" autour de la table. voir http://www.datatables.net/examples/basic_init/dom.html
+                    'sDom' : '<"top"l>tr<"bottom"ip><"clear">',
+                    // Affiche le contenu par 10, par 25 ou par 50 sur une page.
+                    "lengthMenu": [10, 25, 50],
+                    // N'affiche les boutons que lorsqu'ils sont nécessaires, c'est à dire quand il y a plus d'une page à afficher.
+                    "fnDrawCallback":function(){
+                        if (Math.ceil((this.fnSettings().fnRecordsDisplay()) / this.fnSettings()._iDisplayLength) > 1)  {
+                            $('#search_paginate')[0].style.display = "block";
+                            $('#search_info')[0].style.display = "block";
+                            $('#search_length')[0].style.display = "block";
+                        } else {
+                            $('#search_paginate')[0].style.display = "none";
+                            $('#search_info')[0].style.display = "none";
+                            $('#search_length')[0].style.display = "none";
+                        }
+                    }
+                });
+                
+                // Utilisation de "data tables" pour tous les éléments de la view index du controller objet.
+                var ids = new Array("#objets_cooking", "#myObjets", "#shared_objets", "#borrowed_objets", "#objets_sport", "#objets_tool", "#objets_game", "#objets_other" );
+
+                // Boucle sur les différentes paginations. Affiche à chaque fois les boutons ne navigation ("p") en dessous du tableau ("t")
+                for(var i= 0; i < ids.length; i++)
+                {
+                     $(ids[i]).dataTable({
+                        'sDom' : '<"top"tr><"bottom"p><"clear">',
+                        "lengthMenu": [10],
+                        // Idéalement, n'afficherait la pagination que lorsqu'il y a plus d'une page à afficher. Ne fonctionne que sur le premier élément, donc laissé en commentaire pour l'instant.
+                        /*"fnDrawCallback":function(){
+                            if (Math.ceil((this.fnSettings().fnRecordsDisplay()) / this.fnSettings()._iDisplayLength) > 1)  {
+                                $(ids[i]+'_paginate')[0].style.display = "block";
+                                $(ids[i]+'_info')[0].style.display = "block";
+                                $(ids[i]+'_length')[0].style.display = "block";
+                            } else {
+                                $(ids[i]+'_paginate')[0].style.display = "none";
+                                $(ids[i]+'_info')[0].style.display = "none";
+                                $(ids[i]+'_length')[0].style.display = "none";
+                            }
+                        }*/
+                    });
+                }
+            } );
     </script>
   </body>
 </html>

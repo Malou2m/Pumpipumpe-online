@@ -46,7 +46,7 @@ class AppController extends Controller {
     // sessions support
     // authorization for login and logut redirect
     public $components = array(
-        'DebugKit.Toolbar',
+        // 'DebugKit.Toolbar',
         'Session',
         'Auth' => array(
             'flash' => array(
@@ -64,7 +64,8 @@ class AppController extends Controller {
  
         ),
         'RequestHandler',
-        'Email');
+        'Email',
+        );
     
     
     public function beforeFilter() {

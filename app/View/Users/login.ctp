@@ -1,6 +1,7 @@
 <!-- affiche "welcome $username lors d'un login" -->
 
 <div><?= $this->Session->flash('auth_error') ?></div>
+</div>
 
  <!-- Carousel Slider
     ================================================== -->
@@ -12,30 +13,29 @@
         <li data-target="#myCarousel" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner">
-        <div class="item active">
+        <div class="item bg bg1 active">
+          <?php // echo $this->Html->image('pumpipumpe_slide1.png', array('alt' => 'pumpipumpe_slide1')); ?>
           <div class="container">
             <div class="carousel-caption">
-              <h1>Welcome in Pumpipumpe online</h1>
-              <p>You can become a free member of the sharing comunity by the quickest way</p>
+              <h1>Welcome in Pumpipumpe online, the sharing community</h1>
+              <p>In Pumpipumpe online, you will place some useful obects you own at the community's disposal. If you have for example a bike pump, you could share it with someone else who may do not have any. In the same way, you will be able to borrow objects you don't want to buy for using it twice a year! So, you will have both economical and ecological advantages by sharing your objects and borrowing other's!</p>
               <p><?= $this->Html->link( "Subscribe now!",   array('action'=>'subscribe'), array('class' => 'btn btn-lg btn-primary') ); ?></p>
             </div>
           </div>
         </div>
-        <div class="item">
+        <div class="item bg bg2">
           <div class="container">
             <div class="carousel-caption">
-              <h1>This can ben a link to the object page</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Go to the page</a></p>
+              <h1>Sharing is now the trend in Switzerland!</h1>
+              <p>This Project is based on the <a href="http://www.pumpipumpe.ch/le-projet/">Pumpipumpe</a> project from the firm “Meteor Collectif”. They won several prices and their system works with stickers you put on your letter box.</p>
             </div>
           </div>
         </div>
         <div class="item">
+          <?php echo $this->Html->image('share-button.png', array('alt' => 'share-button')); ?>
           <div class="container">
             <div class="carousel-caption">
-              <h1>One more for good measure.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Begin now</a></p>
             </div>
           </div>
         </div>
@@ -50,8 +50,8 @@
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h1>How to use pumpipumpe</h1>
-        <p>Lorem ipsum donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+        <h1>What is pumpipumpe?</h1>
+        <p>Pumpipumpe online is an online objects sharing platform based on the project <a href="http://www.pumpipumpe.ch/le-projet/"> Pumpipumpe</a> from the firm “Meteor Collectif”. The idea is to place some useful obects you own at the community's disposal. If you have for example a bike pump, you could share it with someone else who may do not have any. In the same way, you will be able to borrow objects you don't want to buy for using it twice a year! So, you will have both economical and ecological advantages by sharing your objects and borrowing other's! It's now time to <?= $this->Html->link( "join us!",   array('action'=>'subscribe'), array('class' => 'btn btn-lg btn-primary'))?></p>
         
       </div>
 

@@ -19,7 +19,7 @@
         echo $this->Form->input('password_confirm', array('label' => 'Confirm Password *', 'maxLength' => 255, 'title' => 'Confirm password', 'type'=>'password'));
         echo $this->Form->input('PLZ', array('label' => 'Postal code', 'maxLength' => 4, 'title' => 'PLZ', 'type' => 'text'));
          
-        echo $this->Form->submit('Subscribe', array('class' => 'form-submit',  'title' => 'Click here to subscribe') ); 
+        echo $this->Form->submit('Subscribe', array('class' => 'form-submit btn btn-default',  'title' => 'Click here to subscribe') ); 
 ?>
     
 <?php echo $this->Form->end(); ?>
